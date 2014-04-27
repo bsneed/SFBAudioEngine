@@ -106,6 +106,14 @@
 		32EE7D6C12DD408000533884 /* AddAPETagToDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32EE7D6A12DD408000533884 /* AddAPETagToDictionary.cpp */; };
 		32EE7D7612DD40D200533884 /* SetAPETagFromMetadata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32EE7D7412DD40D200533884 /* SetAPETagFromMetadata.cpp */; };
 		32F6274F13A52AA7004EC204 /* LibsndfileDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 32F6274D13A52AA7004EC204 /* LibsndfileDecoder.cpp */; };
+		CA0D4D84190CB87700CCA6E5 /* AudioFormat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA0D4D82190CB87700CCA6E5 /* AudioFormat.cpp */; };
+		CA0D4D85190CB87700CCA6E5 /* AudioFormat.h in Headers */ = {isa = PBXBuildFile; fileRef = CA0D4D83190CB87700CCA6E5 /* AudioFormat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CA0D4D88190CB8B300CCA6E5 /* AudioOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA0D4D86190CB8B300CCA6E5 /* AudioOutput.cpp */; };
+		CA0D4D89190CB8B300CCA6E5 /* AudioOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = CA0D4D87190CB8B300CCA6E5 /* AudioOutput.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CA0D4D8C190CB8D000CCA6E5 /* AudioRingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA0D4D8A190CB8D000CCA6E5 /* AudioRingBuffer.cpp */; };
+		CA0D4D8D190CB8D000CCA6E5 /* AudioRingBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = CA0D4D8B190CB8D000CCA6E5 /* AudioRingBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CA0D4D90190CB8E400CCA6E5 /* CoreAudioOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA0D4D8E190CB8E400CCA6E5 /* CoreAudioOutput.cpp */; };
+		CA0D4D91190CB8E400CCA6E5 /* CoreAudioOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = CA0D4D8F190CB8E400CCA6E5 /* CoreAudioOutput.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -291,6 +299,14 @@
 		32EE7D7412DD40D200533884 /* SetAPETagFromMetadata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SetAPETagFromMetadata.cpp; sourceTree = "<group>"; };
 		32F6274D13A52AA7004EC204 /* LibsndfileDecoder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = LibsndfileDecoder.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		32F6274E13A52AA7004EC204 /* LibsndfileDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibsndfileDecoder.h; sourceTree = "<group>"; };
+		CA0D4D82190CB87700CCA6E5 /* AudioFormat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioFormat.cpp; sourceTree = "<group>"; };
+		CA0D4D83190CB87700CCA6E5 /* AudioFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioFormat.h; sourceTree = "<group>"; };
+		CA0D4D86190CB8B300CCA6E5 /* AudioOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioOutput.cpp; path = Output/AudioOutput.cpp; sourceTree = "<group>"; };
+		CA0D4D87190CB8B300CCA6E5 /* AudioOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioOutput.h; path = Output/AudioOutput.h; sourceTree = "<group>"; };
+		CA0D4D8A190CB8D000CCA6E5 /* AudioRingBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioRingBuffer.cpp; sourceTree = "<group>"; };
+		CA0D4D8B190CB8D000CCA6E5 /* AudioRingBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioRingBuffer.h; sourceTree = "<group>"; };
+		CA0D4D8E190CB8E400CCA6E5 /* CoreAudioOutput.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoreAudioOutput.cpp; path = Output/CoreAudioOutput.cpp; sourceTree = "<group>"; };
+		CA0D4D8F190CB8E400CCA6E5 /* CoreAudioOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreAudioOutput.h; path = Output/CoreAudioOutput.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +349,14 @@
 		29B97315FDCFA39411CA2CEA /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				CA0D4D8E190CB8E400CCA6E5 /* CoreAudioOutput.cpp */,
+				CA0D4D8F190CB8E400CCA6E5 /* CoreAudioOutput.h */,
+				CA0D4D8A190CB8D000CCA6E5 /* AudioRingBuffer.cpp */,
+				CA0D4D8B190CB8D000CCA6E5 /* AudioRingBuffer.h */,
+				CA0D4D86190CB8B300CCA6E5 /* AudioOutput.cpp */,
+				CA0D4D87190CB8B300CCA6E5 /* AudioOutput.h */,
+				CA0D4D82190CB87700CCA6E5 /* AudioFormat.cpp */,
+				CA0D4D83190CB87700CCA6E5 /* AudioFormat.h */,
 				3230A937182E698900D630CF /* AudioBufferList.h */,
 				3230A936182E698900D630CF /* AudioBufferList.cpp */,
 				32C99D2018305387004388CF /* AudioChannelLayout.h */,
@@ -571,6 +595,10 @@
 				326CE06E17E3B023003877AB /* CreateDisplayNameForURL.h in Headers */,
 				32AEB2F61409BB23001F9A60 /* Logger.h in Headers */,
 				32B848EC180E395D00A222C5 /* ReplayGainAnalyzer.h in Headers */,
+				CA0D4D91190CB8E400CCA6E5 /* CoreAudioOutput.h in Headers */,
+				CA0D4D8D190CB8D000CCA6E5 /* AudioRingBuffer.h in Headers */,
+				CA0D4D89190CB8B300CCA6E5 /* AudioOutput.h in Headers */,
+				CA0D4D85190CB87700CCA6E5 /* AudioFormat.h in Headers */,
 				32A5A20317DD1BF80064C5DE /* CFWrapper.h in Headers */,
 				32C99D2218305387004388CF /* AudioChannelLayout.h in Headers */,
 				32B848E8180E199D00A222C5 /* AudioConverter.h in Headers */,
@@ -691,6 +719,7 @@
 				32C212DE109111A500BA2493 /* AudioDecoder.cpp in Sources */,
 				32C212E0109111A600BA2493 /* CoreAudioDecoder.cpp in Sources */,
 				3255602B1092A38F00580566 /* FLACDecoder.cpp in Sources */,
+				CA0D4D88190CB8B300CCA6E5 /* AudioOutput.cpp in Sources */,
 				32E6AB9B1096C81200DA998D /* LoopableRegionDecoder.cpp in Sources */,
 				32E7378F10B9178100094C8A /* WavPackDecoder.cpp in Sources */,
 				32E738E010B9A49700094C8A /* MPEGDecoder.cpp in Sources */,
@@ -698,6 +727,7 @@
 				32CA910410B9E525005A85DA /* MusepackDecoder.cpp in Sources */,
 				32EA67F9112BC4D9006C26F1 /* AudioMetadata.cpp in Sources */,
 				32EA6825112CD84B006C26F1 /* FLACMetadata.cpp in Sources */,
+				CA0D4D84190CB87700CCA6E5 /* AudioFormat.cpp in Sources */,
 				322D78A9112F971C006676FC /* WavPackMetadata.cpp in Sources */,
 				322D78B2112F9851006676FC /* CreateDisplayNameForURL.cpp in Sources */,
 				321FCF9117BF1C3600828C3A /* RingBuffer.cpp in Sources */,
@@ -710,6 +740,7 @@
 				3205E43E113085AE00FD9DAD /* MP3Metadata.cpp in Sources */,
 				3205E45C11308F8C00FD9DAD /* MusepackMetadata.cpp in Sources */,
 				3205E4C311309CA300FD9DAD /* OggFLACMetadata.cpp in Sources */,
+				CA0D4D90190CB8E400CCA6E5 /* CoreAudioOutput.cpp in Sources */,
 				3205E4C511309CA300FD9DAD /* OggVorbisMetadata.cpp in Sources */,
 				3205E52C1130F49700FD9DAD /* SetXiphCommentFromMetadata.cpp in Sources */,
 				3291CC1714F5CB9400B34DA4 /* AddTagToDictionary.cpp in Sources */,
@@ -742,6 +773,7 @@
 				32386EF413D2135400D25175 /* HTTPInputSource.cpp in Sources */,
 				32D429E613E308DB00FA07DE /* AudioPlayer.cpp in Sources */,
 				32AEB2911409AF2B001F9A60 /* Logger.cpp in Sources */,
+				CA0D4D8C190CB8D000CCA6E5 /* AudioRingBuffer.cpp in Sources */,
 				32AF1A6014C8FE3C00750053 /* TrueAudioDecoder.cpp in Sources */,
 				320A32E314DD5E8F00A5BAA4 /* TrueAudioMetadata.cpp in Sources */,
 				3291CC2814F5D03C00B34DA4 /* AttachedPicture.cpp in Sources */,
