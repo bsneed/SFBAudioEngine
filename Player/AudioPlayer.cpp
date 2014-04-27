@@ -336,10 +336,15 @@ SFB::Audio::Player::~Player()
 
 bool SFB::Audio::Player::Play()
 {
-	if(!mOutput->IsRunning())
-		return mOutput->Start();
+	if(mOutput->IsRunning())
+		return true;
 
-	return true;
+	// We don't want to start output in the middle of a buffer modification
+	std::unique_lock<std::mutex> lock(mMutex, std::try_to_lock);
+	if(!lock)
+		return false;
+
+	return mOutput->Start();
 }
 
 bool SFB::Audio::Player::Pause()
@@ -361,8 +366,8 @@ bool SFB::Audio::Player::Stop()
 
 	StopActiveDecoders();
 
-//	if(!mOutput->Reset())
-//		return false;
+	if(!mOutput->Reset())
+		return false;
 
 	// Reset the ring buffer
 	mFramesDecoded.store(0, std::memory_order_relaxed);
@@ -1214,7 +1219,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 							SInt64 newFrame = decoderState->mDecoder->SeekToFrame(frameToSeek);
 
 							if(newFrame != frameToSeek)
-								LOGGER_ERR("org.sbooth.AudioEngine.Player", "Error seeking to frame  " << frameToSeek);
+								LOGGER_NOTICE("org.sbooth.AudioEngine.Player", "Inaccurate seek to frame  " << frameToSeek << ", got frame " << newFrame);
 
 							// Update the seek request
 							decoderState->mFrameToSeek.store(-1, std::memory_order_relaxed);
@@ -1320,8 +1325,12 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 				if(eAudioPlayerFlagStartPlayback & mFlags.load(std::memory_order_relaxed)) {
 					mFlags.fetch_and(~eAudioPlayerFlagStartPlayback, std::memory_order_relaxed);
 
-					if(!mOutput->IsRunning() && !mOutput->Start())
-						LOGGER_ERR("org.sbooth.AudioEngine.Player", "Unable to start output");
+					if(!mOutput->IsRunning()) {
+						// We don't want to start output in the middle of a buffer modification
+						std::unique_lock<std::mutex> lock(mMutex, std::try_to_lock);
+						if(lock && !mOutput->Start())
+							LOGGER_ERR("org.sbooth.AudioEngine.Player", "Unable to start output");
+					}
 				}
 
 				// Wait for the audio rendering thread to signal us that it could use more data, or for the timeout to happen
@@ -1511,23 +1520,25 @@ bool SFB::Audio::Player::SetOutput(Output::unique_ptr output)
 	if(!mOutput->Close())
 		LOGGER_ERR("org.sbooth.AudioEngine.Player", "Unable to close output");
 
-	mOutput = std::move(output);
-
-	mOutput->SetPlayer(this);
-	if(!mOutput->Open()) {
-		LOGGER_CRIT("org.sbooth.AudioEngine.Player", "OpenOutput() failed");
+	if(!output->Open()) {
+		LOGGER_CRIT("org.sbooth.AudioEngine.Player", "Unable to open output");
 		return false;
 	}
+
+	output->SetPlayer(this);
+	mOutput = std::move(output);
 
 	return true;
 }
 
 UInt32 SFB::Audio::Player::ProvideAudio(AudioBufferList *bufferList, UInt32 frameCount)
 {
+	// ========================================
 	// Pre-rendering actions
+
 	// Call the pre-render block
-//	if(mRenderEventBlocks[0])
-//		mRenderEventBlocks[0](ioData, inNumberFrames);
+	if(mRenderEventBlocks[0])
+		mRenderEventBlocks[0](bufferList, frameCount);
 
 	// Mute output if requested
 	if(eAudioPlayerFlagRequestMute & mFlags.load(std::memory_order_relaxed)) {
@@ -1538,6 +1549,7 @@ UInt32 SFB::Audio::Player::ProvideAudio(AudioBufferList *bufferList, UInt32 fram
 	}
 
 
+	// ========================================
 	// Rendering
 	size_t framesAvailableToRead = mRingBuffer->GetFramesAvailableToRead();
 
@@ -1581,16 +1593,18 @@ UInt32 SFB::Audio::Player::ProvideAudio(AudioBufferList *bufferList, UInt32 fram
 		mDecoderSemaphore.Signal();
 
 
+	// ========================================
 	// Post-rendering actions
+
 	// Call the post-render block
-//	if(mRenderEventBlocks[1])
-//		mRenderEventBlocks[1](ioData, inNumberFrames);
+	if(mRenderEventBlocks[1])
+		mRenderEventBlocks[1](bufferList, frameCount);
 
 	// There is nothing more to do if no frames were rendered
 	if(0 == framesRead)
 		return 0;
 
-	// mFramesRenderedLastPass contains the number of valid frames that were rendered
+	// framesRead contains the number of valid frames that were rendered
 	// However, these could have come from any number of decoders depending on the buffer sizes
 	// So it is necessary to split them up here
 
